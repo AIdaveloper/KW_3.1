@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Продукты</title>
+  <link rel="stylesheet" th:href="@{/css/ZeroCode.css}">
+  <link rel="stylesheet" th:href="@{/css/defult.css}">
+
+
+  <link rel="stylesheet" href="../../static/css/index.css">
+  <link rel="stylesheet" href="../../static/css/ZeroCode.css">
+  <link rel="stylesheet" href="../../static/css/defult.css">
+
+
+</head>
+<body>
+<header class="">
+  <div class="navBar">
+    <div class="navBarContainer">
+      <a class="navbarBrand" href="/">SWEETSHOP</a>
+      <div class="navBarItemsAndSearch" id="navbarSupportedContent">
+        <ul class="navBarItems">
+          <li class="navItem dropdown">
+            <a  href="/products">
+              Товары
+            </a>
+            <ul class="dropdownMenu" aria-labelledby="navbarDropdown">
+              <li th:each="type : ${types}"><a class="dropdownItem"
+                                               th:href="@{/products(typeId=${type.getTypeId()})}"
+                                               th:text="${type.getName()}">TEXT</a></li>
+            </ul>
+          </li>
+          <li class="navItem" th:if='${userRole.contains("ADMIN")} or ${userRole.contains("USER")}'>
+            <a href="/basket">Корзина</a>
+          </li>
+          <li class="navItem" th:if='${userRole.contains("GUEST")}'>
+            <a href="/login">Войти</a>
+          </li>
+          <li class="navItem" th:if='${userRole.contains("GUEST")}'>
+            <a href="/registration">Регистрация</a>
+          </li>
+          <li class="navItem" th:if='${userRole.contains("ADMIN")} or ${userRole.contains("USER")}'>
+            <a href="/logout">Выйти</a>
+          </li>
+
+          <li class="navItem" th:if='${userRole.contains("ADMIN")}'>
+            <a class="" href="/admin">Админ панель</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="main">
+  <article class="block1 box">
+    <section class="in block1">
+      <p><span style="font-size: 30px">Привет!</span> <br><br>Здесь ты найдешь самые вкусные тортик и пончики на свете.
+        <br>Мы собрали их
+        <br>специально для вас!</p>
+      <a class="slink" href="/products">Перейти к товарам</a>
+      <div class="main background first">
+        <img th:src="@{/img/main.jpg}" alt="" src="../static/img/main.jpg">
+      </div>
+    </section>
+  </article>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('.navItem.dropdown').forEach(function (e) {
+      console.log(e.querySelector('.dropdownMenu').getBoundingClientRect().width)
+      e.style.minWidth = e.querySelector('.dropdownMenu').getBoundingClientRect().width + 10 + "px"
+      e.querySelector('.dropdownMenu').style.minWidth = (e.getBoundingClientRect().width) + "px"
+
+    })
+    countryes = document.getElementById('countries')
+  });
+
+
+</script>
+</body>
+</html>
